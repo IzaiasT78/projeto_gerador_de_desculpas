@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estúdio Gerador de Desculpas | DesculpaMaster</title>
+  <meta name="description" content="Personalize sua desculpa escolhendo categoria, destinatário, tom e nível de absurdo. Salve suas favoritas no histórico.">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/app.css">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎭</text></svg>">
+  <style>
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="brand-logo">
+        <div class="brand-icon">🎭</div>
+        <span>Desculpa<span class="gradient-text">Master</span></span>
+      </a>
+
+      <div class="nav-auth" id="navbar-auth-actions">
+        <!-- Atualizado via api.js -->
+        <a href="/login.html" class="btn btn-outline btn-sm">Entrar</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTEÚDO PRINCIPAL DO APP -->
+  <main class="app-container">
+
+    <!-- NAVEGAÇÃO DE ABAS -->
+    <div class="tabs-navigation">
+      <button id="tab-btn-studio" class="tab-button active">
+        ⚡ Estúdio Gerador
+      </button>
+      <button id="tab-btn-history" class="tab-button">
+        📚 Minhas Desculpas Salvas
+        <span id="history-count-badge" class="tab-badge" style="display: none;">0</span>
+      </button>
+    </div>
+
+    <!-- ABA 1: ESTÚDIO GERADOR -->
+    <div id="view-studio" class="studio-grid">
+
+      <!-- COLUNA DE CONTROLES (ESQUERDA) -->
+      <div class="glass-card controls-card">
+
+        <!-- Categoria -->
+        <div class="control-group">
+          <label class="control-title">
+            <span>📁</span> 1. Qual é a ocasião / categoria?
+          </label>
+          <div class="category-selector">
+            <div class="selector-card selected" data-category="trabalho">
+              <span class="card-icon">💼</span>
+              <span class="card-label">Trabalho</span>
+            </div>
+            <div class="selector-card" data-category="role">
+              <span class="card-icon">🎉</span>
+              <span class="card-label">Amigos & Rolê</span>
+            </div>
+            <div class="selector-card" data-category="relacionamento">
+              <span class="card-icon">❤️</span>
+              <span class="card-label">Relacionamento</span>
+            </div>
+            <div class="selector-card" data-category="familia">
+              <span class="card-icon">🏠</span>
+              <span class="card-label">Família</span>
+            </div>
+            <div class="selector-card" data-category="estudos">
+              <span class="card-icon">📚</span>
+              <span class="card-label">Estudos</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Destinatário -->
+        <div class="control-group">
+          <label class="control-title">
+            <span>👤</span> 2. Para quem você vai enviar?
+          </label>
+          <div class="pills-container">
+            <span class="pill-item selected" data-recipient="chefe">👔 Chefe / Gestor(a)</span>
+            <span class="pill-item" data-recipient="colega">👥 Colega de Equipe</span>
+            <span class="pill-item" data-recipient="amigo">🍻 Amigo(a)</span>
+            <span class="pill-item" data-recipient="crush">💕 Crush / Amor</span>
+            <span class="pill-item" data-recipient="familia">👵 Mãe / Parente</span>
+            <span class="pill-item" data-recipient="professor">🎓 Professor(a)</span>
+          </div>
+        </div>
+
+        <!-- Tom da Mensagem -->
+        <div class="control-group">
+          <label class="control-title">
+            <span>🎭</span> 3. Qual o tom da conversa?
+          </label>
+          <div class="tones-grid">
+            <div class="tone-card selected" data-tone="corporativo">
+              <div class="tone-title">💼 Corporativo</div>
+              <div class="tone-desc">Polido, formal & vocabulário seguro</div>
+            </div>
+            <div class="tone-card" data-tone="dramatico">
+              <div class="tone-title">😱 Dramático</div>
+              <div class="tone-desc">Azar cósmico & tragédia grega</div>
+            </div>
+            <div class="tone-card" data-tone="caradepau">
+              <div class="tone-title">🕶️ Cara de Pau</div>
+              <div class="tone-desc">Descontraído & sem pudores</div>
+            </div>
+            <div class="tone-card" data-tone="filosofico">
+              <div class="tone-title">🧘 Filosófico</div>
+              <div class="tone-desc">Reflexões existenciais sobre o tempo</div>
+            </div>
+            <div class="tone-card" data-tone="direto" style="grid-column: span 2;">
+              <div class="tone-title">⚡ Curto & Direto</div>
+              <div class="tone-desc">Sem detalhes que deem brecha a perguntas</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nível de Absurdo / Cara de Pau -->
+        <div class="control-group">
+          <label class="control-title">
+            <span>🎚️</span> 4. Nível de Cara de Pau / Criatividade
+          </label>
+          <div class="absurdity-box">
+            <div class="slider-header">
+              <span style="font-size: 0.85rem; color: var(--text-muted);">Calibragem de Risco:</span>
+              <span id="slider-level-text" class="level-indicator">Nível 1: 100% Crível & Seguro 🛡️</span>
+            </div>
+            <input
+              type="range"
+              id="slider-absurdity"
+              class="range-slider"
+              min="1"
+              max="5"
+              step="1"
+              value="1"
+            >
+          </div>
+        </div>
+
+        <!-- Contexto Específico (Opcional) -->
+        <div class="control-group">
+          <label class="control-title" for="input-situation">
+            <span>📝</span> 5. Algum motivo ou detalhe específico? <span style="font-weight: 400; color: var(--text-muted); font-size: 0.8rem;">(Opcional)</span>
+          </label>
+          <textarea
+            id="input-situation"
+            class="form-control"
+            placeholder="Ex: dormi demais depois do almoço, esqueci de enviar o relatório, não quero ir na festa da sogra..."
+          ></textarea>
+
+          <div class="quick-context-chips">
+            <span class="chip-tag">+ Dormi além da conta</span>
+            <span class="chip-tag">+ Preso no trânsito</span>
+            <span class="chip-tag">+ Encanamento vazando</span>
+            <span class="chip-tag">+ Queda de energia</span>
+            <span class="chip-tag">+ Vontade de ficar na cama</span>
+          </div>
+        </div>
+
+        <!-- Botões de Ação de Geração -->
+        <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem; flex-wrap: wrap;">
+          <button id="btn-main-generate" class="btn btn-primary btn-lg" style="flex: 2;">
+            ⚡ Gerar Desculpa Imbatível
+          </button>
+          <button id="btn-random-generate" class="btn btn-secondary btn-lg" style="flex: 1;" title="Gera uma combinação aleatória imediata">
+            🎲 Aleatória
+          </button>
+        </div>
+
+      </div>
+
+      <!-- PAINEL DE RESULTADO (DIREITA) -->
+      <div class="result-panel">
+        <div class="glass-card result-card">
+          <div>
+            <div class="result-header">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-size: 1.3rem;">✨</span>
+                <span style="font-weight: 700; font-size: 1.05rem;">Sua Desculpa Pronta</span>
+              </div>
+              <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <span id="badge-engine" class="badge badge-brand">🤖 OpenAI</span>
+                <span id="badge-credibility" class="badge badge-success">Crível: 95%</span>
+              </div>
+            </div>
+
+            <!-- SELETOR DAS 3 OPÇÕES GERADAS -->
+            <div class="excuse-options-wrapper" id="container-excuse-options">
+              <div class="excuse-options-header">
+                <span>Escolha uma das 3 opções geradas:</span>
+              </div>
+              <div class="excuse-tabs-selector">
+                <button type="button" class="excuse-tab-pill active" data-index="0" id="pill-option-0">
+                  <span class="pill-number">1</span> Opção A
+                </button>
+                <button type="button" class="excuse-tab-pill" data-index="1" id="pill-option-1">
+                  <span class="pill-number">2</span> Opção B
+                </button>
+                <button type="button" class="excuse-tab-pill" data-index="2" id="pill-option-2">
+                  <span class="pill-number">3</span> Opção C
+                </button>
+              </div>
+            </div>
+
+            <!-- TEXTO DA DESCULPA GERADA -->
+            <div class="excuse-display" id="main-excuse-display">
+              "Carregando a melhor desculpa para a sua situação..."
+            </div>
+          </div>
+
+          <!-- BOTÕES DE AÇÃO COM O RESULTADO -->
+          <div>
+            <div class="result-actions-grid">
+              <button id="btn-copy-result" class="btn btn-secondary">
+                📋 Copiar Texto
+              </button>
+              <button id="btn-whatsapp-result" class="btn btn-whatsapp">
+                📲 Mandar no WhatsApp
+              </button>
+              <button id="btn-save-result" class="btn btn-primary btn-full">
+                💾 Salvar no Meu Histórico
+              </button>
+            </div>
+            <p style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem;">
+              💡 Dica: Ao salvar no histórico, você pode consultar depois e evitar repetir a mesma mentira!
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ABA 2: MINHAS DESCULPAS SALVAS (HISTÓRICO) -->
+    <div id="view-history" class="hidden">
+
+      <div class="glass-card" style="margin-bottom: 2rem; padding: 1.5rem;">
+        <div class="history-controls">
+          <div class="history-search">
+            <input
+              type="text"
+              id="history-search-input"
+              class="form-control"
+              placeholder="🔍 Buscar nas minhas desculpas..."
+            >
+          </div>
+
+          <div class="history-filters">
+            <select id="history-category-filter" class="form-control" style="width: auto; min-width: 170px;">
+              <option value="all">Todas as Categorias</option>
+              <option value="trabalho">Trabalho</option>
+              <option value="role">Rolê</option>
+              <option value="relacionamento">Relacionamento</option>
+              <option value="familia">Família</option>
+              <option value="estudos">Estudos</option>
+            </select>
+
+            <button id="history-fav-only-btn" class="btn btn-outline" type="button">
+              ⭐ Apenas Favoritas
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- GRID DE CARDS DO HISTÓRICO -->
+      <div id="history-cards-container" class="history-grid">
+        <!-- Renderizado dinamicamente via app.js -->
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

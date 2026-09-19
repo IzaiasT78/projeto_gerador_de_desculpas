@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acesse sua Conta | Gerador de Desculpas</title>
+  <meta name="description" content="Entre na sua conta ou cadastre-se para salvar seu histórico de desculpas geradas e favoritos.">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/auth.css">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎭</text></svg>">
+  <style>
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR COMPACTA -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="brand-logo">
+        <div class="brand-icon">🎭</div>
+        <span>Desculpa<span class="gradient-text">Master</span></span>
+      </a>
+
+      <div class="nav-auth">
+        <a href="/" class="btn btn-outline btn-sm">← Voltar à Home</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- FORMULÁRIO DE AUTENTICAÇÃO -->
+  <main class="auth-wrapper">
+    <div class="glass-card auth-card">
+      <div class="auth-header">
+        <div class="brand-icon">🔒</div>
+        <h1 class="auth-title" id="auth-title">Bem-vindo(a) de volta</h1>
+        <p class="auth-subtitle" id="auth-subtitle">Acesse sua conta para ver suas desculpas salvas</p>
+      </div>
+
+      <!-- TABS LOGIN / REGISTRO -->
+      <div class="auth-tabs">
+        <button id="tab-btn-login" class="auth-tab-btn active" type="button">Entrar</button>
+        <button id="tab-btn-register" class="auth-tab-btn" type="button">Criar Conta</button>
+      </div>
+
+      <!-- FORMULÁRIO DE LOGIN -->
+      <form id="form-login" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="login-email">E-mail</label>
+          <input
+            type="email"
+            id="login-email"
+            class="form-control"
+            placeholder="seu.email@exemplo.com"
+            required
+            autocomplete="email"
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="login-password">Senha</label>
+          <div class="password-input-group">
+            <input
+              type="password"
+              id="login-password"
+              class="form-control"
+              placeholder="Digite sua senha"
+              required
+              autocomplete="current-password"
+            >
+            <button type="button" class="password-toggle-btn" title="Mostrar/ocultar senha">👁️</button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 1rem;">
+          Entrar na Conta
+        </button>
+      </form>
+
+      <!-- FORMULÁRIO DE REGISTRO (CADASTRO) -->
+      <form id="form-register" class="hidden" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="register-name">Seu Nome</label>
+          <input
+            type="text"
+            id="register-name"
+            class="form-control"
+            placeholder="Como podemos te chamar?"
+            required
+            autocomplete="name"
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="register-email">E-mail</label>
+          <input
+            type="email"
+            id="register-email"
+            class="form-control"
+            placeholder="seu.email@exemplo.com"
+            required
+            autocomplete="email"
+          >
+          <div id="email-feedback-msg" class="input-feedback-msg" style="display: none;"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="register-password">Senha de Acesso</label>
+          <div class="password-input-group">
+            <input
+              type="password"
+              id="register-password"
+              class="form-control"
+              placeholder="Crie uma senha forte"
+              required
+              autocomplete="new-password"
+            >
+            <button type="button" class="password-toggle-btn" title="Mostrar/ocultar senha">👁️</button>
+          </div>
+
+          <!-- CHECKLIST VISUAL DE SENHA FORTE -->
+          <div id="password-rules-card" class="password-rules-card" style="display: none;">
+            <div class="rules-header">
+              <span>Força da Senha:</span>
+              <span id="password-strength-label" class="badge">Fraca</span>
+            </div>
+            <div class="password-strength-bar">
+              <div id="password-strength-fill" class="password-strength-fill"></div>
+            </div>
+            <ul class="rules-list">
+              <li id="rule-length" class="rule-item invalid">
+                <span class="rule-icon">○</span> Mínimo de 8 caracteres
+              </li>
+              <li id="rule-upper" class="rule-item invalid">
+                <span class="rule-icon">○</span> Pelo menos 1 letra maiúscula (A-Z)
+              </li>
+              <li id="rule-lower" class="rule-item invalid">
+                <span class="rule-icon">○</span> Pelo menos 1 letra minúscula (a-z)
+              </li>
+              <li id="rule-number" class="rule-item invalid">
+                <span class="rule-icon">○</span> Pelo menos 1 número (0-9)
+              </li>
+              <li id="rule-special" class="rule-item invalid">
+                <span class="rule-icon">○</span> Pelo menos 1 caractere especial (!@#$...)
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="register-password-confirm">Confirmar Senha</label>
+          <div class="password-input-group">
+            <input
+              type="password"
+              id="register-password-confirm"
+              class="form-control"
+              placeholder="Repita sua senha exatamente"
+              required
+              autocomplete="new-password"
+            >
+            <button type="button" class="password-toggle-btn" title="Mostrar/ocultar senha">👁️</button>
+          </div>
+          <div id="password-match-msg" class="input-feedback-msg" style="display: none;"></div>
+        </div>
+
+        <button type="submit" id="btn-submit-register" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 1rem;">
+          Criar Conta Grátis
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <span>Não quer criar conta agora?</span>
+        <br>
+        <a href="/app.html">Você pode usar o gerador como visitante →</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+</body>
+</html>

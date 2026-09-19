@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Desculpas | Salve seu dia com desculpas infalíveis</title>
+  <meta name="description" content="Precisa faltar no trabalho, cancelar o rolê ou justificar um atraso? Crie desculpas convincentes e personalizadas em segundos.">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/home.css">
+
+  <!-- Favicon Emoji -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎭</text></svg>">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="brand-logo">
+        <div class="brand-icon">🎭</div>
+        <span>Desculpa<span class="gradient-text">Master</span></span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#como-funciona" class="nav-link">Como Funciona</a></li>
+        <li><a href="#categorias" class="nav-link">Categorias</a></li>
+        <li><a href="#depoimentos" class="nav-link">Depoimentos</a></li>
+      </ul>
+
+      <div class="nav-auth" id="navbar-auth-actions">
+        <!-- Preenchido dinamicamente pelo api.js -->
+        <a href="/login.html" class="btn btn-outline btn-sm">Entrar</a>
+        <a href="/app.html" class="btn btn-primary btn-sm">Gerar Agora</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <header class="hero-section">
+    <div class="hero-badge-container">
+      <span class="badge badge-brand">🚀 O Salvador Oficial da Sua Rotina Social</span>
+    </div>
+
+    <h1 class="hero-title">
+      Precisa de uma desculpa <span class="gradient-text">100% convincente</span> em segundos?
+    </h1>
+
+    <p class="hero-subtitle">
+      Seja para escapar daquela reunião maçante, justificar um atraso no trânsito ou cancelar o rolê de domingo na cama com Netflix. Escolha o tom, ajuste o nível de absurdo e copie com um clique.
+    </p>
+
+    <div class="hero-actions">
+      <a href="/app.html" class="btn btn-primary btn-lg">⚡ Abrir Estúdio Completo</a>
+      <a href="/login.html?tab=register" class="btn btn-secondary btn-lg">Criar Conta Grátis</a>
+    </div>
+
+    <!-- PREVIEW / DEMO INTERATIVO DIRETO NA HOME -->
+    <div class="demo-container">
+      <div class="glass-card demo-card">
+        <div class="demo-header">
+          <div class="demo-title-group">
+            <span style="font-size: 1.5rem;">🧪</span>
+            <div>
+              <h3 style="font-size: 1.1rem;">Teste Rápido ao Vivo</h3>
+              <p style="font-size: 0.82rem; color: var(--text-muted);">Veja uma amostra do nosso motor de desculpas em ação</p>
+            </div>
+          </div>
+          <span class="badge badge-success">Modo Instantâneo</span>
+        </div>
+
+        <div class="demo-pill-options">
+          <span class="demo-chip active" data-category="trabalho">💼 Trabalho & Chefe</span>
+          <span class="demo-chip" data-category="role">🎉 Cancelar Rolê</span>
+          <span class="demo-chip" data-category="relacionamento">❤️ Desmarcar Date</span>
+          <span class="demo-chip" data-category="familia">🏠 Almoço de Família</span>
+        </div>
+
+        <div class="demo-result-box">
+          <p class="demo-excuse-text" id="demo-excuse-display">
+            "Prezado(a), ocorreu um imprevisto elétrico na minha rua e a equipe de manutenção está restabelecendo o fornecimento. Retorno às atividades assim que normalizar."
+          </p>
+        </div>
+
+        <div class="demo-actions">
+          <button id="btn-demo-generate" class="btn btn-secondary btn-sm">
+            🔄 Gerar Outra
+          </button>
+          <div style="display: flex; gap: 0.5rem;">
+            <button id="btn-demo-whatsapp" class="btn btn-whatsapp btn-sm" title="Enviar no WhatsApp">
+              📲 WhatsApp
+            </button>
+            <button id="btn-demo-copy" class="btn btn-primary btn-sm" title="Copiar texto">
+              📋 Copiar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ESTATÍSTICAS SOCIAIS -->
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number" id="stat-total-excuses">1.850+</div>
+        <div class="stat-label">Desculpas Geradas</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">99.2%</div>
+        <div class="stat-label">Taxa de Eficácia</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-total-users">420+</div>
+        <div class="stat-label">Usuários Cadastrados</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-total-favorites">930+</div>
+        <div class="stat-label">Desculpas Salvas</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section class="features-section" id="como-funciona">
+    <div class="section-header">
+      <span class="badge badge-brand" style="margin-bottom: 0.75rem;">Simples & Eficaz</span>
+      <h2 class="section-title">Como funciona em 3 passos</h2>
+      <p class="section-subtitle">Sem enrolação técnica. Você escolhe os parâmetros e nós criamos o álibi perfeito.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="glass-card feature-card">
+        <div class="feature-icon-wrapper">🎯</div>
+        <h3 class="feature-title">1. Escolha o Cenário</h3>
+        <p class="feature-desc">
+          Selecione quem receberá a mensagem (chefe, amigos, crush ou parentes) e qual a situação que precisa justificar.
+        </p>
+      </div>
+
+      <div class="glass-card feature-card">
+        <div class="feature-icon-wrapper">🎚️</div>
+        <h3 class="feature-title">2. Calibre o Absurdo</h3>
+        <p class="feature-desc">
+          Do Nível 1 (super plausível, seguro e corporativo) até o Nível 5 (caos cósmico e cara de pau extrema).
+        </p>
+      </div>
+
+      <div class="glass-card feature-card">
+        <div class="feature-icon-wrapper">🚀</div>
+        <h3 class="feature-title">3. Copie ou Envie</h3>
+        <p class="feature-desc">
+          Com apenas um clique, copie para a área de transferência ou mande formatado direto no WhatsApp do destinatário.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIAS -->
+  <section class="features-section" id="categorias">
+    <div class="section-header">
+      <span class="badge badge-brand" style="margin-bottom: 0.75rem;">Para Qualquer Ocasião</span>
+      <h2 class="section-title">Pronto para qualquer crise</h2>
+      <p class="section-subtitle">Modelos pré-construídos e calibrados por especialistas em desculpas corporativas e sociais.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="glass-card feature-card">
+        <div class="feature-icon-wrapper">💼</div>
+        <h3 class="feature-title">Trabalho & Reuniões</h3>
+        <p class="feature-desc">
+          Atrasos na daily matinal, faltas em treinamentos e justificativas para prorrogar prazos sem perder a credibilidade.
+        </p>
+      </div>
+
+      <div class="glass-card feature-card">
+        <div class="feature-icon-wrapper">🍻</div>
+        <h3 class="feature-title">Amigos & Rolê</h3>
+        <p class="feature-desc">
+          Aquela sexta-feira chuvosa que você só quer ficar de pijama no sofá sem parecer o amigo anti-social da turma.
+        </p>
+      </div>
+
+      <div class="glass-card feature-card">
+        <div class="feature-icon-wrapper">💌</div>
+        <h3 class="feature-title">Crush & Relacionamentos</h3>
+        <p class="feature-desc">
+          Desmarque encontros de última hora com elegância, carinho e sem ferir os sentimentos alheios.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS HILÁRIOS -->
+  <section class="testimonials-section" id="depoimentos">
+    <div class="section-header">
+      <span class="badge badge-brand" style="margin-bottom: 0.75rem;">Histórias Reais</span>
+      <h2 class="section-title">Quem usou, aprovou (e não foi demitido)</h2>
+      <p class="section-subtitle">Veja o que dizem os mestres da fuga estratégica.</p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-quote">
+          "Meu chefe achou que meu cano de água estourou 3 vezes no mesmo mês com os detalhes do Nível 2. Recebi até folga remunerada. Nota 10/10!"
+        </p>
+        <div class="testimonial-author">
+          <div class="author-avatar">LM</div>
+          <div class="author-info">
+            <h4>Lucas M.</h4>
+            <span>Analista de Sistemas & Vítima de Reuniões</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <p class="testimonial-quote">
+          "Cancelei 4 encontros no Tinder com as desculpas dramáticas e a pessoa ainda me mandou flores e desejou melhoras. Esse app salvou meu domingo de sono."
+        </p>
+        <div class="testimonial-author">
+          <div class="author-avatar">BS</div>
+          <div class="author-info">
+            <h4>Beatriz S.</h4>
+            <span>Introvertida Profissional</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <p class="testimonial-quote">
+          "O botão de salvar no histórico com o SQLite é incrível. Agora tenho um acervo organizado das desculpas que já usei pra não repetir com o mesmo chefe!"
+        </p>
+        <div class="testimonial-author">
+          <div class="author-avatar">RO</div>
+          <div class="author-info">
+            <h4>Rodrigo O.</h4>
+            <span>Gerente de Projetos Atrasados</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-section">
+    <div class="cta-box">
+      <h2>Pronto para nunca mais ficar sem resposta?</h2>
+      <p>Cadastre-se gratuitamente, salve suas desculpas favoritas e tenha sempre a resposta perfeita na ponta dos dedos.</p>
+      <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+        <a href="/login.html?tab=register" class="btn btn-primary btn-lg">Criar Minha Conta Grátis</a>
+        <a href="/app.html" class="btn btn-secondary btn-lg">Acessar o Gerador Agora</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <a href="/" class="brand-logo">
+        <div class="brand-icon">🎭</div>
+        <span>Desculpa<span class="gradient-text">Master</span></span>
+      </a>
+      <p class="footer-disclaimer">
+        * Isenção de responsabilidade: Este projeto foi criado com propósitos recreativos e de alívio cômico contra o estresse moderno. Use seu bom senso antes de culpar alienígenas pelo atraso na entrega do seu relatório corporativo.
+      </p>
+      <div class="footer-copy">
+        &copy; 2026 Gerador de Desculpas Inteligente. Todos os direitos reservados.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/js/api.js"></script>
+  <script src="/js/home.js"></script>
+</body>
+</html>
